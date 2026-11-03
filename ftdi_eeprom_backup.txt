@@ -1,0 +1,7 @@
+location=0x1D1
+ftdi=FT2232H
+serial=1234-tul
+vendor=xilinx
+board=tul
+manufacturer=Xilinx
+description=TUL

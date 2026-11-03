@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<style>html,body{margin:0;padding:0;background:#fff}svg{display:block}text{font-family:'Microsoft YaHei','微软雅黑','PingFang SC',sans-serif}</style>
+</head><body>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 720" width="1000" height="720">
+  <text x="40" y="42" font-size="22" font-weight="bold" fill="#1f3a5f">图 2.2.3　电路接口示意图（编码器接口 + 共地）</text>
+
+  <!-- 3.3V 电源轨 -->
+  <line x1="320" y1="110" x2="600" y2="110" stroke="#1f3a5f" stroke-width="3"/>
+  <text x="330" y="100" font-size="14" fill="#1f3a5f">+3.3V（J5-35 / 36）</text>
+
+  <!-- 编码器 -->
+  <rect x="60" y="150" width="240" height="160" rx="10" fill="#dde7f2" stroke="#1f3a5f" stroke-width="2.5"/>
+  <text x="180" y="205" font-size="16" font-weight="bold" fill="#1f3a5f" text-anchor="middle">增量式编码器</text>
+  <text x="180" y="230" font-size="14" fill="#1f3a5f" text-anchor="middle">（NPN 集电极开路输出）</text>
+  <text x="330" y="345" font-size="12.5" fill="#557">输出级：发射极接 GND，集电极经上拉到 3.3V</text>
+  <!-- 编码器引脚 -->
+  <circle cx="300" cy="195" r="4" fill="#1f3a5f"/>
+  <circle cx="300" cy="235" r="4" fill="#1f3a5f"/>
+  <circle cx="300" cy="275" r="4" fill="#1f3a5f"/>
+  <circle cx="120" cy="310" r="4" fill="#e8833a"/>
+  <circle cx="220" cy="310" r="4" fill="#1f3a5f"/>
+
+  <!-- 上拉电阻 A/B/Z -->
+  <line x1="350" y1="110" x2="350" y2="140" stroke="#1f3a5f" stroke-width="2"/>
+  <rect x="342" y="140" width="16" height="30" fill="#fff" stroke="#1f3a5f" stroke-width="1.5"/>
+  <text x="366" y="160" font-size="12" fill="#1f3a5f">4.7kΩ</text>
+  <line x1="350" y1="170" x2="350" y2="195" stroke="#1f3a5f" stroke-width="2"/>
+
+  <line x1="430" y1="110" x2="430" y2="140" stroke="#1f3a5f" stroke-width="2"/>
+  <rect x="422" y="140" width="16" height="30" fill="#fff" stroke="#1f3a5f" stroke-width="1.5"/>
+  <text x="446" y="160" font-size="12" fill="#1f3a5f">4.7kΩ</text>
+  <line x1="430" y1="170" x2="430" y2="235" stroke="#1f3a5f" stroke-width="2"/>
+
+  <line x1="510" y1="110" x2="510" y2="140" stroke="#1f3a5f" stroke-width="2"/>
+  <rect x="502" y="140" width="16" height="30" fill="#fff" stroke="#1f3a5f" stroke-width="1.5"/>
+  <text x="526" y="160" font-size="12" fill="#1f3a5f">4.7kΩ</text>
+  <line x1="510" y1="170" x2="510" y2="275" stroke="#1f3a5f" stroke-width="2"/>
+
+  <!-- 节点到编码器引脚 -->
+  <line x1="300" y1="195" x2="350" y2="195" stroke="#1f3a5f" stroke-width="2"/>
+  <line x1="300" y1="235" x2="430" y2="235" stroke="#1f3a5f" stroke-width="2"/>
+  <line x1="300" y1="275" x2="510" y2="275" stroke="#1f3a5f" stroke-width="2"/>
+
+  <!-- 节点到 FPGA -->
+  <path d="M350 195 L610 195 L610 375 L680 375" fill="none" stroke="#1f3a5f" stroke-width="2"/>
+  <path d="M430 235 L610 235 L610 435 L680 435" fill="none" stroke="#1f3a5f" stroke-width="2"/>
+  <path d="M510 275 L610 275 L610 495 L680 495" fill="none" stroke="#1f3a5f" stroke-width="2"/>
+  <polygon points="680,375 670,370 670,380" fill="#1f3a5f"/>
+  <polygon points="680,435 670,430 670,440" fill="#1f3a5f"/>
+  <polygon points="680,495 670,490 670,500" fill="#1f3a5f"/>
+  <text x="560" y="188" font-size="12" fill="#1f3a5f">A</text>
+  <text x="560" y="228" font-size="12" fill="#1f3a5f">B</text>
+  <text x="560" y="268" font-size="12" fill="#1f3a5f">Z</text>
+
+  <!-- FPGA -->
+  <rect x="680" y="330" width="270" height="210" rx="10" fill="#cfe0d4" stroke="#1f3a5f" stroke-width="2.5"/>
+  <text x="815" y="358" font-size="16" font-weight="bold" fill="#1f3a5f" text-anchor="middle">FPGA Artix-7 XC7A35T</text>
+  <text x="695" y="380" font-size="13" fill="#1f3a5f">enc_a = B11</text>
+  <text x="695" y="440" font-size="13" fill="#1f3a5f">enc_b = A11</text>
+  <text x="695" y="500" font-size="13" fill="#1f3a5f">enc_z = E15</text>
+  <circle cx="680" cy="375" r="4" fill="#1f3a5f"/>
+  <circle cx="680" cy="435" r="4" fill="#1f3a5f"/>
+  <circle cx="680" cy="495" r="4" fill="#1f3a5f"/>
+  <circle cx="760" cy="540" r="4" fill="#1f3a5f"/>
+  <text x="770" y="535" font-size="12" fill="#1f3a5f">GND</text>
+
+  <!-- GND 轨 -->
+  <line x1="80" y1="620" x2="830" y2="620" stroke="#1f3a5f" stroke-width="3"/>
+  <text x="90" y="644" font-size="14" fill="#1f3a5f">GND（J5-33 / 34）</text>
+  <!-- FPGA GND -->
+  <line x1="760" y1="540" x2="760" y2="620" stroke="#1f3a5f" stroke-width="2"/>
+  <!-- 编码器 GND（共地，橙色高亮） -->
+  <path d="M120 310 L120 620" fill="none" stroke="#e8833a" stroke-width="4"/>
+  <text x="150" y="470" font-size="13" font-weight="bold" fill="#e8833a">★ 共地：编码器 OV 必须接 J5 GND</text>
+  <text x="150" y="490" font-size="13" font-weight="bold" fill="#e8833a">否则一个脉冲也数不到</text>
+
+  <!-- 编码器供电 -->
+  <path d="M220 310 L220 648 L190 648" fill="none" stroke="#1f3a5f" stroke-width="2" stroke-dasharray="6 4"/>
+  <rect x="70" y="648" width="240" height="34" rx="5" fill="#e8edf3" stroke="#1f3a5f" stroke-width="1.5"/>
+  <text x="190" y="670" font-size="12.5" fill="#1f3a5f" text-anchor="middle">编码器供电 DC 5V</text>
+
+  <!-- 警告框 -->
+  <rect x="620" y="60" width="350" height="84" rx="6" fill="#fff6e5" stroke="#e8833a" stroke-width="2" stroke-dasharray="5 4"/>
+  <text x="635" y="86" font-size="13" font-weight="bold" fill="#9a5a10">⚠ 上拉顶端必须接 3.3V（J5-35/36），</text>
+  <text x="635" y="106" font-size="13" font-weight="bold" fill="#9a5a10">   禁止接 12V，否则损坏 FPGA 引脚！</text>
+  <text x="635" y="130" font-size="13" font-weight="bold" fill="#9a5a10">⚠ 编码器供电 DC 5V（最低 5V），禁止取板载 3.3V！</text>
+
+  <!-- 其余电路 -->
+  <rect x="520" y="650" width="440" height="40" rx="5" fill="#f2f2f2" stroke="#888" stroke-width="1.2"/>
+  <text x="535" y="675" font-size="12.5" fill="#444">其余电路：OLED（I2C 开漏 + 上拉） · LED（330Ω 限流） · UART（FT2232 桥接 PC）</text>
+</svg>
+</body></html>

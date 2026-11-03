@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<style>html,body{margin:0;padding:0;background:#fff}svg{display:block}text{font-family:'Microsoft YaHei','微软雅黑','PingFang SC',sans-serif}</style>
+</head><body>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1130" width="1000" height="1130">
+  <defs>
+    <marker id="ah" markerWidth="12" markerHeight="12" refX="8" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L9,4 L0,8 Z" fill="#1f3a5f"/>
+    </marker>
+    <marker id="ahr" markerWidth="12" markerHeight="12" refX="8" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L9,4 L0,8 Z" fill="#e8833a"/>
+    </marker>
+    <marker id="ahr2" markerWidth="12" markerHeight="12" refX="8" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L9,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- ===== (a) 正交解码状态机 ===== -->
+  <text x="40" y="42" font-size="22" font-weight="bold" fill="#1f3a5f">图 2.3.2（a）　正交解码状态机（enc_quad，4 倍频）</text>
+
+  <!-- 非法跳变 X -->
+  <line x1="500" y1="120" x2="500" y2="540" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="7 5"/>
+  <line x1="290" y1="330" x2="710" y2="330" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="7 5"/>
+  <text x="522" y="300" font-size="13" font-weight="bold" fill="#c0392b">单拍两位跳变 = 非法跳变</text>
+
+  <!-- 正转弧（外） -->
+  <path d="M541 161 Q636 193 669 289" fill="none" stroke="#1f3a5f" stroke-width="3" marker-end="url(#ah)"/>
+  <path d="M669 371 Q636 466 541 499" fill="none" stroke="#1f3a5f" stroke-width="3" marker-end="url(#ah)"/>
+  <path d="M459 499 Q363 466 331 371" fill="none" stroke="#1f3a5f" stroke-width="3" marker-end="url(#ah)"/>
+  <path d="M331 289 Q363 193 459 161" fill="none" stroke="#1f3a5f" stroke-width="3" marker-end="url(#ah)"/>
+  <!-- 反转弧（内） -->
+  <path d="M459 161 Q426 257 331 289" fill="none" stroke="#e8833a" stroke-width="3" marker-end="url(#ahr)"/>
+  <path d="M331 371 Q426 403 459 499" fill="none" stroke="#e8833a" stroke-width="3" marker-end="url(#ahr)"/>
+  <path d="M541 499 Q573 403 669 371" fill="none" stroke="#e8833a" stroke-width="3" marker-end="url(#ahr)"/>
+  <path d="M669 289 Q573 257 459 161" fill="none" stroke="#e8833a" stroke-width="3" marker-end="url(#ahr)"/>
+
+  <!-- 状态节点 -->
+  <circle cx="500" cy="120" r="46" fill="#dde7f2" stroke="#1f3a5f" stroke-width="2.5"/>
+  <circle cx="710" cy="330" r="46" fill="#dde7f2" stroke="#1f3a5f" stroke-width="2.5"/>
+  <circle cx="500" cy="540" r="46" fill="#dde7f2" stroke="#1f3a5f" stroke-width="2.5"/>
+  <circle cx="290" cy="330" r="46" fill="#dde7f2" stroke="#1f3a5f" stroke-width="2.5"/>
+  <text x="500" y="128" font-size="20" font-weight="bold" fill="#1f3a5f" text-anchor="middle">00</text>
+  <text x="710" y="338" font-size="20" font-weight="bold" fill="#1f3a5f" text-anchor="middle">01</text>
+  <text x="500" y="548" font-size="20" font-weight="bold" fill="#1f3a5f" text-anchor="middle">11</text>
+  <text x="290" y="338" font-size="20" font-weight="bold" fill="#1f3a5f" text-anchor="middle">10</text>
+
+  <!-- 图例 / 说明 -->
+  <text x="40" y="200" font-size="13" fill="#1f3a5f">● 蓝弧（顺时针）：正转，每步 step_up +1</text>
+  <text x="40" y="222" font-size="13" fill="#e8833a">● 橙弧（逆时针）：反转，每步 step_dn −1</text>
+  <text x="40" y="560" font-size="13" fill="#557">格雷码相邻仅一位变化；四边走完 = 1 个 A 相周期 = 4 倍频计 4 步。</text>
+
+  <!-- err 说明框 -->
+  <rect x="735" y="500" width="245" height="62" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="750" y="524" font-size="12.5" fill="#c0392b">单拍两位同时翻转 → err</text>
+  <text x="750" y="544" font-size="12.5" fill="#c0392b">置非法跳变报警，锁存 LED[4]</text>
+  <line x1="500" y1="330" x2="735" y2="525" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#ahr2)"/>
+
+  <!-- ===== (b) 报警判别流程 ===== -->
+  <text x="40" y="610" font-size="22" font-weight="bold" fill="#1f3a5f">图 2.3.2（b）　报警判别流程（enc_alarm，三类锁存）</text>
+
+  <!-- 开始 -->
+  <rect x="370" y="630" width="260" height="46" rx="8" fill="#dde7f2" stroke="#1f3a5f" stroke-width="2.5"/>
+  <text x="500" y="658" font-size="14" fill="#1f3a5f" text-anchor="middle">采样 rpm / z_gap / illegal</text>
+
+  <!-- D1 -->
+  <polygon points="500,700 660,745 500,790 340,745" fill="#eef3fb" stroke="#1f3a5f" stroke-width="2"/>
+  <text x="500" y="742" font-size="13.5" fill="#1f3a5f" text-anchor="middle">rpm &gt; SPEED_MAX(700)?</text>
+  <text x="500" y="760" font-size="12" fill="#1f3a5f" text-anchor="middle">否 ↓</text>
+  <line x1="500" y1="676" x2="500" y2="700" stroke="#1f3a5f" stroke-width="2" marker-end="url(#ah)"/>
+
+  <!-- B_ov -->
+  <rect x="760" y="720" width="220" height="50" rx="6" fill="#fff6e5" stroke="#e8833a" stroke-width="2"/>
+  <text x="870" y="742" font-size="13" fill="#9a5a10" text-anchor="middle">置超速 ov，LED[2] 锁存</text>
+  <line x1="660" y1="745" x2="760" y2="745" stroke="#1f3a5f" stroke-width="2" marker-end="url(#ah)"/>
+  <text x="685" y="735" font-size="12" fill="#1f3a5f">是</text>
+  <line x1="870" y1="770" x2="870" y2="940" stroke="#1f3a5f" stroke-width="1.5" stroke-dasharray="5 4"/>
+
+  <!-- D2 -->
+  <polygon points="500,810 660,855 500,900 340,855" fill="#eef3fb" stroke="#1f3a5f" stroke-width="2"/>
+  <text x="500" y="851" font-size="12.5" fill="#1f3a5f" text-anchor="middle">|z_gap − CPR(2400)| &gt; Z_GAP_TOL(200)?</text>
+  <text x="500" y="918" font-size="12" fill="#1f3a5f" text-anchor="middle">否 ↓</text>
+  <line x1="500" y1="790" x2="500" y2="810" stroke="#1f3a5f" stroke-width="2" marker-end="url(#ah)"/>
+
+  <!-- B_pl -->
+  <rect x="760" y="830" width="220" height="50" rx="6" fill="#fff6e5" stroke="#e8833a" stroke-width="2"/>
+  <text x="870" y="852" font-size="13" fill="#9a5a10" text-anchor="middle">置丢脉冲 pl，LED[3] 锁存</text>
+  <line x1="660" y1="855" x2="760" y2="855" stroke="#1f3a5f" stroke-width="2" marker-end="url(#ah)"/>
+  <text x="685" y="845" font-size="12" fill="#1f3a5f">是</text>
+  <line x1="870" y1="880" x2="870" y2="940" stroke="#1f3a5f" stroke-width="1.5" stroke-dasharray="5 4"/>
+
+  <!-- D3 -->
+  <polygon points="500,920 660,965 500,1010 340,965" fill="#eef3fb" stroke="#1f3a5f" stroke-width="2"/>
+  <text x="500" y="961" font-size="13.5" fill="#1f3a5f" text-anchor="middle">illegal == 1?</text>
+  <text x="500" y="1028" font-size="12" fill="#1f3a5f" text-anchor="middle">否 ↓</text>
+  <line x1="500" y1="900" x2="500" y2="920" stroke="#1f3a5f" stroke-width="2" marker-end="url(#ah)"/>
+
+  <!-- B_il -->
+  <rect x="760" y="940" width="220" height="50" rx="6" fill="#fff6e5" stroke="#e8833a" stroke-width="2"/>
+  <text x="870" y="962" font-size="13" fill="#9a5a10" text-anchor="middle">置非法跳变，LED[4] 锁存</text>
+  <line x1="660" y1="965" x2="760" y2="965" stroke="#1f3a5f" stroke-width="2" marker-end="url(#ah)"/>
+  <text x="685" y="955" font-size="12" fill="#1f3a5f">是</text>
+  <line x1="870" y1="990" x2="870" y2="1040" stroke="#1f3a5f" stroke-width="1.5" stroke-dasharray="5 4"/>
+
+  <!-- 最终：等待清除 -->
+  <rect x="330" y="1040" width="340" height="50" rx="8" fill="#dde7f2" stroke="#1f3a5f" stroke-width="2.5"/>
+  <text x="500" y="1062" font-size="13.5" fill="#1f3a5f" text-anchor="middle">等待 clr_btn(S0) 确认清除</text>
+  <text x="500" y="1080" font-size="11.5" fill="#557" text-anchor="middle">（解除武装机制：条件消失才回 0）</text>
+  <line x1="870" y1="940" x2="870" y2="1065" stroke="#1f3a5f" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <line x1="870" y1="1065" x2="670" y2="1065" stroke="#1f3a5f" stroke-width="1.5" marker-end="url(#ah)"/>
+  <line x1="500" y1="1010" x2="500" y2="1040" stroke="#1f3a5f" stroke-width="2" marker-end="url(#ah)"/>
+</svg>
+</body></html>
