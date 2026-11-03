@@ -42,3 +42,6 @@ __pycache__/
 Thumbs.db
 .DS_Store
 desktop.ini
+
+# 本机系统文件备份，不上传
+hosts_backup.txt
